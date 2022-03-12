@@ -1,0 +1,26 @@
+.balloon {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #333;
+  &.square {
+    border-radius: 0.5rem;
+  }
+  &.redondo {
+    border-radius: 100%;
+  }
+  &.long {
+    width: 30px;
+    border-radius: 100%;
+  }
+  &.small {
+    width: 50px;
+    height: 50px;
+  }
+  &.big {
+    width: 150px;
+    height: 150px;
+    &.long {
+      width: 75px;
+    }
+  }
+}

@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import './App.scss'
+import Balloon from './Components/Balloon'
 
-function App() {
+function App () {
+  const [balloonsRequirement, setBalloonsRequirement] = useState([
+    {
+      shape: 'square',
+      color: 'peru',
+      size: 'small'
+    },
+    {
+      shape: 'redondo',
+      color: 'red',
+      size: 'big'
+    },
+    {
+      shape: 'square',
+      color: 'purple',
+      size: 'big'
+    },
+    {
+      shape: 'long',
+      color: 'slategray',
+      size: 'normal'
+    }
+  ])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <div className='d-flex'>
+        {balloonsRequirement.map((balloon, index) => {
+          const { shape, color, size } = balloon
+          return <Balloon key={index} shape={shape} color={color} size={size} />
+        })}
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
