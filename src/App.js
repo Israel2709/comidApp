@@ -43,11 +43,6 @@ function App () {
   }
   return (
     <div className='App'>
-      <img src='https://picsum.photos/200/300' alt='' />
-      <input type='text' name='cardNumber' onChange={getCardNumber} />
-      <div className='border p-3 bg-dark text-white'>
-        <h1>Número de tarjeta: {cardNumber}</h1>
-      </div>
       <div className='container-fluid'>
         <div className='row'>
           <div className='col-12 col-md-8'>
