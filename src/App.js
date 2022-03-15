@@ -41,6 +41,13 @@ function App () {
   const getCardNumber = event => {
     setCardNumber(event.target.value)
   }
+  const deleteBalloon = event => {
+    console.log(event.target.dataset.balloonIndex)
+    let balloonIndex = event.target.dataset.balloonIndex
+    let ballonsList = balloonsRequirement
+    ballonsList.splice(balloonIndex, 1)
+    setBalloonsRequirement([...ballonsList])
+  }
   return (
     <div className='App'>
       <div className='container-fluid'>
@@ -55,6 +62,8 @@ function App () {
                     shape={shape}
                     color={color}
                     size={size}
+                    deleteHandler={deleteBalloon}
+                    balloonKey={index}
                   />
                 )
               })}
