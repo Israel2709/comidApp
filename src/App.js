@@ -1,34 +1,47 @@
 import { useState, useEffect } from 'react'
+import api from './lib/api'
+import DishCard from './Components/DishCard'
 import './App.scss'
+import DishForm from './Components/DishForm'
 
 function App () {
   const [dishes, setDishes] = useState({})
   const [reFetch, setReFetch] = useState(false)
-  useEffect(() => {
-    console.log('componente renderizado')
-    let data = fetch(
-      'https://react-crud-15g-default-rtdb.firebaseio.com/dishes.json'
-    ).then(response => {
-      response.json().then(json => {
-        setDishes(json)
-      })
-    })
+  const [dishData, setDishData] = useState({})
+
+  useEffect(async () => {
+    let data = await api.getAllDishes()
+    setDishes(data)
+    console.log(data)
   }, [])
+
+  const dishFormHandler = event => {
+    let value = event.target.value
+    let property = event.target.name
+    setDishData({ ...dishData, [property]: value })
+  }
+
+  const saveDish = async () => {
+    let saveResponse = await api.saveDish(dishData)
+    let data = await api.getAllDishes()
+    setDishes(data)
+  }
   return (
     <div className='App'>
-      {Object.keys(dishes).map(dish => {
-        const { name, region, type, picture } = dishes[dish]
-        return (
-          <div className='card border rounded dish-card'>
-            <img src={picture} alt='' />
-            <div className='card-body'>
-              <h2>Nombre: {name}</h2>
-              <h3>Región: {region}</h3>
-              <h4>Tipo: {type}</h4>
+      <div className='container'>
+        <div className='row'>
+          <div className='col-12 col-md-6'>
+            <div className='row py-3'>
+              {Object.keys(dishes).map(dish => {
+                return <DishCard dishData={dishes[dish]} />
+              })}
             </div>
           </div>
-        )
-      })}
+          <div className='col-12 col-md-6'>
+            <DishForm handlers={{ saveDish, dishFormHandler }} />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
