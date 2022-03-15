@@ -17,12 +17,15 @@ function App () {
   return (
     <div className='App'>
       {Object.keys(dishes).map(dish => {
-        const { name, region, type } = dishes[dish]
+        const { name, region, type, picture } = dishes[dish]
         return (
-          <div className='card p-3 border rounded'>
-            <h2>{name}</h2>
-            <h3>{region}</h3>
-            <h4>{type}</h4>
+          <div className='card border rounded dish-card'>
+            <img src={picture} alt='' />
+            <div className='card-body'>
+              <h2>Nombre: {name}</h2>
+              <h3>Región: {region}</h3>
+              <h4>Tipo: {type}</h4>
+            </div>
           </div>
         )
       })}
