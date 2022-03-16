@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
+import { Routes, Route, Link } from 'react-router-dom'
 import api from './lib/api'
-import DishCard from './Components/DishCard'
 import './App.scss'
 import DishForm from './Components/DishForm'
+import Catalog from './Pages/Catalog'
+import Create from './Pages/Create'
+import DishDetail from './Pages/DishDetail'
 
 function App () {
-  /*Colección completa de platillos*/
-  const [dishes, setDishes] = useState({})
   /*Nuevo platillo a guardar en la base de datos*/
   const [dishData, setDishData] = useState({})
   /*Platillo que estamos editando*/
@@ -15,13 +16,7 @@ function App () {
   const [isLogged, setIsLogged] = useState(true)
   /*Bandera de si estamos editando un platillo*/
   const [editedDish, setEditedDish] = useState({})
-
-  useEffect(async () => {
-    let data = await api.getAllDishes()
-    setDishes(data)
-    console.log(data)
-  }, [])
-
+  /*
   const dishFormHandler = event => {
     let value = event.target.value
     let property = event.target.name
@@ -64,48 +59,47 @@ function App () {
     console.log(editedDish)
     let response = await api.saveEditedDish(editedDish.dishId, editedDish)
     console.log(response)
-  }
+  }*/
   return (
     <div className='App'>
-      <button className='btn btn-primary' onClick={isLogged ? logOut : logIn}>
-        {isLogged ? 'Log Out' : 'Log In'}
-      </button>
-      <div className='container'>
-        <div className='row'>
-          <div className='col-12 col-md-6'>
-            <div className='row py-3'>
-              {Object.keys(dishes).map(dish => {
-                return (
-                  <DishCard
-                    key={dish}
-                    dishData={{ ...dishes[dish], dishId: dish }}
-                    editHandler={editDish}
-                  />
-                )
-              })}
-            </div>
-          </div>
-          <div className='col-12 col-md-6'>
-            {!isEditing && isLogged && (
-              <DishForm
-                handlers={{ saveButtonHandler: saveDish, dishFormHandler }}
-                title='Guardar nuevo platillo'
-                dishData={dishData}
-              />
-            )}
-            {isEditing && (
-              <DishForm
-                handlers={{
-                  saveButtonHandler: saveEditedDish,
-                  editDishHandler
-                }}
-                title='Editar platillo'
-                editedDishData={editedDish}
-              />
-            )}
+      <nav className='navbar navbar-expand-sm navbar-dark bg-dark'>
+        <div className='container-fluid'>
+          <a className='navbar-brand' href='/'>
+            Navbar
+          </a>
+          <button
+            className='navbar-toggler'
+            type='button'
+            data-bs-toggle='collapse'
+            data-bs-target='#navbarNav'
+            aria-controls='navbarNav'
+            aria-expanded='false'
+            aria-label='Toggle navigation'
+          >
+            <span className='navbar-toggler-icon'></span>
+          </button>
+          <div className='collapse navbar-collapse' id='navbarNav'>
+            <ul className='navbar-nav'>
+              <li className='nav-item'>
+                <Link to='/' className='nav-link'>
+                  Catálogo
+                </Link>
+              </li>
+              <li className='nav-item'>
+                <Link to='/create' className='nav-link'>
+                  Crear Platillo
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
+      </nav>
+      <Routes>
+        <Route path='/' element={<Catalog />} />
+        <Route path='create' element={<Create />} />
+        <Route path='dish-detail/:id' element={<DishDetail />} />
+      </Routes>
+      <footer>Mi footer</footer>
     </div>
   )
 }
