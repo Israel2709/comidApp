@@ -71,9 +71,10 @@ const Create = () => {
             <div className='form-group mb-3'>
               <label htmlFor=''>Tipo</label>
               <select
-                class='form-select'
+                className='form-select'
                 aria-label='Default select example'
                 onChange={formHandler}
+                name='type'
               >
                 {typeOptions.map(option => (
                   <option value={option.value}>{option.label}</option>

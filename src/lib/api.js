@@ -6,7 +6,7 @@ export default {
     return await response.json()
   },
   saveDish: async dishData => {
-    let response = await fetch(`${BASE_URL}/dishes.json`, {
+    let response = await fetch(`${BASE_URL}/dishes/.json`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
