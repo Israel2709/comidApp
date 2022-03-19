@@ -4,7 +4,7 @@ const DishCard = props => {
   const { editHandler } = props
   const { name, region, type, picture, dishId } = props.dishData
   return (
-    <div className='col-12 col-md-6 mb-3'>
+    <div className='col-12 col-md-3 mb-3'>
       <Link to={`dish-detail/${dishId}`}>
         <div className='card border rounded dish-card shadow'>
           <img src={picture} alt='' />

@@ -8,10 +8,18 @@ const Catalog = () => {
   const [dishes, setDishes] = useState({})
   const [filteredDishes, setFilteredDishes] = useState(null)
   const [textToSearch, setTextToSearch] = useState('')
+  const [regionsList, setRegionsList] = useState([])
   useEffect(async () => {
     let data = await api.getAllDishes()
     setDishes(data)
-    console.log(data)
+    const regionsArray = Object.keys(data).reduce((accum, key) => {
+      let dishObject = data[key]
+      let region = dishObject.region
+      return accum.includes(region) ? accum : [...accum, region]
+    }, [])
+
+    console.log(regionsArray)
+    setRegionsList(regionsArray)
   }, [])
 
   const searchInputHandler = event => {
@@ -46,19 +54,38 @@ const Catalog = () => {
         </div>
       </div>
       <div className='row'>
+        <div className='col-12'>
+          <form
+            action=''
+            className='p-3 bg-dark text-white border rounded shadow mb-3'
+          >
+            <div className='form-group'>
+              <label htmlFor=''>Filtrar por región</label>
+              <select
+                className='form-select'
+                aria-label='Default select example'
+              >
+                {regionsList.map(region => (
+                  <option value={region}>{region}</option>
+                ))}
+              </select>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div className='row'>
         {filteredDishes &&
           filteredDishes.map(key => {
             return (
-              <div className='border border-danger'>
-                <DishCard
-                  key={key}
-                  dishData={{ ...dishes[key], dishId: key }}
-                  editHandler={null}
-                />
-              </div>
+              <DishCard
+                key={key}
+                dishData={{ ...dishes[key], dishId: key }}
+                editHandler={null}
+              />
             )
           })}
         {dishes &&
+          !filteredDishes &&
           Object.keys(dishes).map(key => {
             return (
               <DishCard
