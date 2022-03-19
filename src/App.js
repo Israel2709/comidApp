@@ -22,30 +22,25 @@ function App () {
     let property = event.target.name
     setDishData({ ...dishData, [property]: value })
   }
-
   const editDishHandler = event => {
     let value = event.target.value
     let property = event.target.name
     setEditedDish({ ...editedDish, [property]: value })
   }
-
   const saveDish = async () => {
     console.log('salvando nuevo')
     let saveResponse = await api.saveDish(dishData)
     let data = await api.getAllDishes()
     setDishes(data)
   }
-
   const logIn = () => {
     alert('Sesión iniciada con éxito')
     setIsLogged(!isLogged)
   }
-
   const logOut = () => {
     alert('Cerrando sesión')
     setIsLogged(!isLogged)
   }
-
   const editDish = event => {
     let dishId = event.target.dataset.dishId
     console.log('editar platillo')
@@ -53,7 +48,6 @@ function App () {
     setIsEditing(true)
     console.log(dishId)
   }
-
   const saveEditedDish = async () => {
     console.log('salvando editado')
     console.log(editedDish)
@@ -94,11 +88,13 @@ function App () {
           </div>
         </div>
       </nav>
-      <Routes>
-        <Route path='/' element={<Catalog />} />
-        <Route path='create' element={<Create />} />
-        <Route path='dish-detail/:id' element={<DishDetail />} />
-      </Routes>
+      <div className='pt-5'>
+        <Routes>
+          <Route path='/' element={<Catalog />} />
+          <Route path='create' element={<Create />} />
+          <Route path='dish-detail/:id' element={<DishDetail />} />
+        </Routes>
+      </div>
       <footer>Mi footer</footer>
     </div>
   )
