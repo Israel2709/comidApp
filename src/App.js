@@ -91,8 +91,9 @@ function App () {
       <div className='pt-5'>
         <Routes>
           <Route path='/' element={<Catalog />} />
-          <Route path='create' element={<Create />} />
-          <Route path='dish-detail/:id' element={<DishDetail />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/create' element={<Create />} />
+          <Route path='/dish-detail/:id' element={<DishDetail />} />
         </Routes>
       </div>
       <footer>Mi footer</footer>
