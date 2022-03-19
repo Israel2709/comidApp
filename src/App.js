@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, Link, useNavigate } from 'react-router-dom'
 import api from './lib/api'
 import './App.scss'
 import DishForm from './Components/DishForm'
 import Catalog from './Pages/Catalog'
 import Create from './Pages/Create'
 import DishDetail from './Pages/DishDetail'
+import Login from './Pages/Login'
 
 function App () {
   /*Nuevo platillo a guardar en la base de datos*/
@@ -16,6 +17,8 @@ function App () {
   const [isLogged, setIsLogged] = useState(true)
   /*Bandera de si estamos editando un platillo*/
   const [editedDish, setEditedDish] = useState({})
+
+  const navigate = useNavigate()
   /*
   const dishFormHandler = event => {
     let value = event.target.value
@@ -33,10 +36,16 @@ function App () {
     let data = await api.getAllDishes()
     setDishes(data)
   }
+  */
   const logIn = () => {
-    alert('Sesión iniciada con éxito')
+    alert('Sesión iniciada con éxito, redireccionando!')
     setIsLogged(!isLogged)
+    localStorage.setItem('userToken', '1234asdf')
+    setTimeout(function () {
+      navigate('/catalog')
+    }, 2000)
   }
+  /*
   const logOut = () => {
     alert('Cerrando sesión')
     setIsLogged(!isLogged)
@@ -91,7 +100,8 @@ function App () {
       <div className='pt-5'>
         <Routes>
           <Route path='/' element={<Catalog />} />
-          <Route path='/login' element={<Login />} />
+          <Route path='/catalog' element={<Catalog />} />
+          <Route path='/login' element={<Login loginHandler={logIn} />} />
           <Route path='/create' element={<Create />} />
           <Route path='/dish-detail/:id' element={<DishDetail />} />
         </Routes>
