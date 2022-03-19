@@ -65,7 +65,7 @@ function App () {
   }*/
   return (
     <div className='App'>
-      <nav className='navbar navbar-expand-sm navbar-dark bg-dark'>
+      <nav className='navbar navbar-expand-sm navbar-dark bg-dark fixed-top'>
         <div className='container-fluid'>
           <a className='navbar-brand' href='/'>
             Navbar
